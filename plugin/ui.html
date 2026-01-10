@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 12px;
+      color: #333;
+      padding: 16px;
+      background: #fff;
+    }
+
+    h2 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: #1e1e1e;
+    }
+
+    .field {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      font-size: 11px;
+      font-weight: 500;
+      color: #666;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      font-size: 12px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    input[type="text"]:focus {
+      border-color: #6366f1;
+    }
+
+    input[type="text"]::placeholder {
+      color: #999;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s;
+      width: 100%;
+    }
+
+    .btn-primary {
+      background: #6366f1;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #4f46e5;
+    }
+
+    .btn-primary:disabled {
+      background: #c7c7c7;
+      cursor: not-allowed;
+    }
+
+    .btn-secondary {
+      background: #f1f5f9;
+      color: #1e293b;
+      margin-top: 8px;
+    }
+
+    .btn-secondary:hover {
+      background: #e2e8f0;
+    }
+
+    .status {
+      margin-top: 16px;
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 11px;
+      line-height: 1.5;
+      display: none;
+    }
+
+    .status.visible {
+      display: block;
+    }
+
+    .status.success {
+      background: #ecfdf5;
+      color: #065f46;
+      border: 1px solid #a7f3d0;
+    }
+
+    .status.error {
+      background: #fef2f2;
+      color: #991b1b;
+      border: 1px solid #fecaca;
+    }
+
+    .status.info {
+      background: #eff6ff;
+      color: #1e40af;
+      border: 1px solid #bfdbfe;
+    }
+
+    .component-list {
+      margin-top: 16px;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .component-item {
+      padding: 10px 12px;
+      border-bottom: 1px solid #e0e0e0;
+      cursor: pointer;
+      transition: background 0.1s;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .component-item:last-child {
+      border-bottom: none;
+    }
+
+    .component-item:hover {
+      background: #f8fafc;
+    }
+
+    .component-name {
+      font-weight: 500;
+    }
+
+    .component-variants {
+      font-size: 10px;
+      color: #666;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .section {
+      margin-bottom: 24px;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #e0e0e0;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <h2>Code Sync</h2>
+
+  <div class="section">
+    <div class="field">
+      <label>GitHub Repository URL</label>
+      <input
+        type="text"
+        id="repo-url"
+        placeholder="https://github.com/username/repo"
+        value=""
+      />
+    </div>
+
+    <div class="field">
+      <label>Branch (optional)</label>
+      <input
+        type="text"
+        id="branch"
+        placeholder="main"
+        value="main"
+      />
+    </div>
+
+    <button class="btn btn-primary" id="fetch-btn">
+      Fetch Components
+    </button>
+  </div>
+
+  <div id="components-section" class="section hidden">
+    <hr />
+    <label>Available Components</label>
+    <div class="component-list" id="component-list"></div>
+
+    <button class="btn btn-primary" id="render-all-btn" style="margin-top: 12px;">
+      Render All Components
+    </button>
+  </div>
+
+  <div id="status" class="status"></div>
+
+  <script>
+    const repoUrlInput = document.getElementById('repo-url');
+    const branchInput = document.getElementById('branch');
+    const fetchBtn = document.getElementById('fetch-btn');
+    const componentsSection = document.getElementById('components-section');
+    const componentList = document.getElementById('component-list');
+    const renderAllBtn = document.getElementById('render-all-btn');
+    const statusEl = document.getElementById('status');
+
+    let components = [];
+    let tokens = {};
+
+    function showStatus(message, type = 'info') {
+      statusEl.textContent = message;
+      statusEl.className = `status visible ${type}`;
+    }
+
+    function hideStatus() {
+      statusEl.className = 'status';
+    }
+
+    fetchBtn.addEventListener('click', () => {
+      const repoUrl = repoUrlInput.value.trim();
+      const branch = branchInput.value.trim() || 'main';
+
+      if (!repoUrl) {
+        showStatus('Please enter a repository URL', 'error');
+        return;
+      }
+
+      showStatus('Fetching components...', 'info');
+
+      parent.postMessage({
+        pluginMessage: {
+          type: 'fetch-components',
+          repoUrl,
+          branch
+        }
+      }, '*');
+    });
+
+    renderAllBtn.addEventListener('click', () => {
+      if (components.length === 0) {
+        showStatus('No components to render', 'error');
+        return;
+      }
+
+      showStatus('Rendering all components...', 'info');
+
+      parent.postMessage({
+        pluginMessage: {
+          type: 'render-all',
+          components,
+          tokens
+        }
+      }, '*');
+    });
+
+    function renderComponentItem(component, index) {
+      const variantCount = Object.keys(component.variants || {}).reduce((acc, key) => {
+        return acc * (component.variants[key]?.length || 1);
+      }, 1);
+
+      const item = document.createElement('div');
+      item.className = 'component-item';
+      item.innerHTML = `
+        <span class="component-name">${component.name}</span>
+        <span class="component-variants">${variantCount} variant${variantCount !== 1 ? 's' : ''}</span>
+      `;
+
+      item.addEventListener('click', () => {
+        showStatus(`Rendering ${component.name}...`, 'info');
+        parent.postMessage({
+          pluginMessage: {
+            type: 'render-component',
+            component,
+            tokens
+          }
+        }, '*');
+      });
+
+      return item;
+    }
+
+    window.onmessage = (event) => {
+      const msg = event.data.pluginMessage;
+
+      if (msg.type === 'components-fetched') {
+        components = msg.components;
+        tokens = msg.tokens;
+
+        componentList.innerHTML = '';
+        components.forEach((comp, i) => {
+          componentList.appendChild(renderComponentItem(comp, i));
+        });
+
+        componentsSection.classList.remove('hidden');
+        showStatus(`Found ${components.length} component(s)`, 'success');
+      }
+
+      if (msg.type === 'render-complete') {
+        showStatus(msg.message, 'success');
+      }
+
+      if (msg.type === 'error') {
+        showStatus(msg.message, 'error');
+      }
+    };
+  </script>
+</body>
+</html>

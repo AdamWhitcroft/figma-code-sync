@@ -1,0 +1,86 @@
+{
+  "name": "Input",
+  "description": "Text input field component",
+  "variants": {
+    "size": ["sm", "md", "lg"],
+    "state": ["default", "focused", "error"]
+  },
+  "defaultVariant": {
+    "size": "md",
+    "state": "default"
+  },
+  "base": {
+    "type": "FRAME",
+    "layoutMode": "HORIZONTAL",
+    "primaryAxisAlignItems": "MIN",
+    "counterAxisAlignItems": "CENTER",
+    "cornerRadius": 6,
+    "fills": ["$colors.surface"],
+    "strokes": ["$colors.border"],
+    "strokeWeight": 1,
+    "children": [
+      {
+        "type": "TEXT",
+        "name": "placeholder",
+        "characters": "Enter text...",
+        "fontSize": "$typography.sizes.sm",
+        "fontWeight": "$typography.weights.regular",
+        "fills": ["$colors.textMuted"]
+      }
+    ]
+  },
+  "variantOverrides": {
+    "state": {
+      "default": {},
+      "focused": {
+        "strokes": ["$colors.primary"],
+        "strokeWeight": 2
+      },
+      "error": {
+        "strokes": [{ "value": "#EF4444", "figmaValue": { "r": 0.937, "g": 0.267, "b": 0.267 } }],
+        "strokeWeight": 2
+      }
+    },
+    "size": {
+      "sm": {
+        "paddingLeft": "$spacing.sm",
+        "paddingRight": "$spacing.sm",
+        "paddingTop": "$spacing.xs",
+        "paddingBottom": "$spacing.xs",
+        "minWidth": 160,
+        "children": [
+          {
+            "name": "placeholder",
+            "fontSize": "$typography.sizes.xs"
+          }
+        ]
+      },
+      "md": {
+        "paddingLeft": "$spacing.md",
+        "paddingRight": "$spacing.md",
+        "paddingTop": "$spacing.sm",
+        "paddingBottom": "$spacing.sm",
+        "minWidth": 200,
+        "children": [
+          {
+            "name": "placeholder",
+            "fontSize": "$typography.sizes.sm"
+          }
+        ]
+      },
+      "lg": {
+        "paddingLeft": "$spacing.lg",
+        "paddingRight": "$spacing.lg",
+        "paddingTop": "$spacing.md",
+        "paddingBottom": "$spacing.md",
+        "minWidth": 240,
+        "children": [
+          {
+            "name": "placeholder",
+            "fontSize": "$typography.sizes.base"
+          }
+        ]
+      }
+    }
+  }
+}

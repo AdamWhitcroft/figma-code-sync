@@ -1,0 +1,38 @@
+{
+  "primary": {
+    "value": "#6366F1",
+    "figmaValue": { "r": 0.388, "g": 0.4, "b": 0.945 }
+  },
+  "primaryHover": {
+    "value": "#4F46E5",
+    "figmaValue": { "r": 0.31, "g": 0.275, "b": 0.898 }
+  },
+  "secondary": {
+    "value": "#F1F5F9",
+    "figmaValue": { "r": 0.945, "g": 0.961, "b": 0.976 }
+  },
+  "surface": {
+    "value": "#FFFFFF",
+    "figmaValue": { "r": 1, "g": 1, "b": 1 }
+  },
+  "onPrimary": {
+    "value": "#FFFFFF",
+    "figmaValue": { "r": 1, "g": 1, "b": 1 }
+  },
+  "onSecondary": {
+    "value": "#1E293B",
+    "figmaValue": { "r": 0.118, "g": 0.161, "b": 0.231 }
+  },
+  "border": {
+    "value": "#E2E8F0",
+    "figmaValue": { "r": 0.886, "g": 0.91, "b": 0.941 }
+  },
+  "text": {
+    "value": "#1E293B",
+    "figmaValue": { "r": 0.118, "g": 0.161, "b": 0.231 }
+  },
+  "textMuted": {
+    "value": "#64748B",
+    "figmaValue": { "r": 0.392, "g": 0.455, "b": 0.545 }
+  }
+}

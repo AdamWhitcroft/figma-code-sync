@@ -1,0 +1,99 @@
+{
+  "name": "Button",
+  "description": "Primary action button component",
+  "variants": {
+    "variant": ["primary", "secondary", "ghost"],
+    "size": ["sm", "md", "lg"]
+  },
+  "defaultVariant": {
+    "variant": "primary",
+    "size": "md"
+  },
+  "base": {
+    "type": "FRAME",
+    "layoutMode": "HORIZONTAL",
+    "primaryAxisAlignItems": "CENTER",
+    "counterAxisAlignItems": "CENTER",
+    "cornerRadius": 8,
+    "children": [
+      {
+        "type": "TEXT",
+        "name": "label",
+        "characters": "Button",
+        "fontSize": "$typography.sizes.sm",
+        "fontWeight": "$typography.weights.medium"
+      }
+    ]
+  },
+  "variantOverrides": {
+    "variant": {
+      "primary": {
+        "fills": ["$colors.primary"],
+        "children": [
+          {
+            "name": "label",
+            "fills": ["$colors.onPrimary"]
+          }
+        ]
+      },
+      "secondary": {
+        "fills": ["$colors.secondary"],
+        "children": [
+          {
+            "name": "label",
+            "fills": ["$colors.onSecondary"]
+          }
+        ]
+      },
+      "ghost": {
+        "fills": [],
+        "strokes": ["$colors.border"],
+        "strokeWeight": 1,
+        "children": [
+          {
+            "name": "label",
+            "fills": ["$colors.text"]
+          }
+        ]
+      }
+    },
+    "size": {
+      "sm": {
+        "paddingLeft": "$spacing.sm",
+        "paddingRight": "$spacing.sm",
+        "paddingTop": "$spacing.xs",
+        "paddingBottom": "$spacing.xs",
+        "children": [
+          {
+            "name": "label",
+            "fontSize": "$typography.sizes.xs"
+          }
+        ]
+      },
+      "md": {
+        "paddingLeft": "$spacing.lg",
+        "paddingRight": "$spacing.lg",
+        "paddingTop": "$spacing.sm",
+        "paddingBottom": "$spacing.sm",
+        "children": [
+          {
+            "name": "label",
+            "fontSize": "$typography.sizes.sm"
+          }
+        ]
+      },
+      "lg": {
+        "paddingLeft": "$spacing.xl",
+        "paddingRight": "$spacing.xl",
+        "paddingTop": "$spacing.md",
+        "paddingBottom": "$spacing.md",
+        "children": [
+          {
+            "name": "label",
+            "fontSize": "$typography.sizes.base"
+          }
+        ]
+      }
+    }
+  }
+}

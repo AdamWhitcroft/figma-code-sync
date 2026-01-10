@@ -1,0 +1,56 @@
+{
+  "name": "Card",
+  "description": "Container card component",
+  "variants": {
+    "variant": ["elevated", "outlined", "filled"]
+  },
+  "defaultVariant": {
+    "variant": "elevated"
+  },
+  "base": {
+    "type": "FRAME",
+    "layoutMode": "VERTICAL",
+    "primaryAxisAlignItems": "MIN",
+    "counterAxisAlignItems": "MIN",
+    "paddingLeft": "$spacing.lg",
+    "paddingRight": "$spacing.lg",
+    "paddingTop": "$spacing.lg",
+    "paddingBottom": "$spacing.lg",
+    "itemSpacing": "$spacing.md",
+    "cornerRadius": 12,
+    "minWidth": 280,
+    "children": [
+      {
+        "type": "TEXT",
+        "name": "title",
+        "characters": "Card Title",
+        "fontSize": "$typography.sizes.lg",
+        "fontWeight": "$typography.weights.semibold",
+        "fills": ["$colors.text"]
+      },
+      {
+        "type": "TEXT",
+        "name": "description",
+        "characters": "This is a description of the card content that provides more details.",
+        "fontSize": "$typography.sizes.sm",
+        "fontWeight": "$typography.weights.regular",
+        "fills": ["$colors.textMuted"]
+      }
+    ]
+  },
+  "variantOverrides": {
+    "variant": {
+      "elevated": {
+        "fills": ["$colors.surface"]
+      },
+      "outlined": {
+        "fills": ["$colors.surface"],
+        "strokes": ["$colors.border"],
+        "strokeWeight": 1
+      },
+      "filled": {
+        "fills": ["$colors.secondary"]
+      }
+    }
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "name": "Badge",
+  "description": "Status badge component",
+  "variants": {
+    "variant": ["default", "success", "warning", "error"],
+    "size": ["sm", "md"]
+  },
+  "defaultVariant": {
+    "variant": "default",
+    "size": "md"
+  },
+  "base": {
+    "type": "FRAME",
+    "layoutMode": "HORIZONTAL",
+    "primaryAxisAlignItems": "CENTER",
+    "counterAxisAlignItems": "CENTER",
+    "cornerRadius": 100,
+    "children": [
+      {
+        "type": "TEXT",
+        "name": "label",
+        "characters": "Badge",
+        "fontWeight": "$typography.weights.medium"
+      }
+    ]
+  },
+  "variantOverrides": {
+    "variant": {
+      "default": {
+        "fills": ["$colors.secondary"],
+        "children": [
+          {
+            "name": "label",
+            "fills": ["$colors.text"]
+          }
+        ]
+      },
+      "success": {
+        "fills": [{ "value": "#DCFCE7", "figmaValue": { "r": 0.863, "g": 0.988, "b": 0.906 } }],
+        "children": [
+          {
+            "name": "label",
+            "fills": [{ "value": "#166534", "figmaValue": { "r": 0.086, "g": 0.396, "b": 0.204 } }]
+          }
+        ]
+      },
+      "warning": {
+        "fills": [{ "value": "#FEF3C7", "figmaValue": { "r": 0.996, "g": 0.953, "b": 0.780 } }],
+        "children": [
+          {
+            "name": "label",
+            "fills": [{ "value": "#92400E", "figmaValue": { "r": 0.573, "g": 0.251, "b": 0.055 } }]
+          }
+        ]
+      },
+      "error": {
+        "fills": [{ "value": "#FEE2E2", "figmaValue": { "r": 0.996, "g": 0.886, "b": 0.886 } }],
+        "children": [
+          {
+            "name": "label",
+            "fills": [{ "value": "#991B1B", "figmaValue": { "r": 0.600, "g": 0.106, "b": 0.106 } }]
+          }
+        ]
+      }
+    },
+    "size": {
+      "sm": {
+        "paddingLeft": "$spacing.sm",
+        "paddingRight": "$spacing.sm",
+        "paddingTop": 2,
+        "paddingBottom": 2,
+        "children": [
+          {
+            "name": "label",
+            "fontSize": "$typography.sizes.xs"
+          }
+        ]
+      },
+      "md": {
+        "paddingLeft": "$spacing.md",
+        "paddingRight": "$spacing.md",
+        "paddingTop": "$spacing.xs",
+        "paddingBottom": "$spacing.xs",
+        "children": [
+          {
+            "name": "label",
+            "fontSize": "$typography.sizes.sm"
+          }
+        ]
+      }
+    }
+  }
+}
