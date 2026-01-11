@@ -14,7 +14,7 @@
     "layoutMode": "HORIZONTAL",
     "primaryAxisAlignItems": "CENTER",
     "counterAxisAlignItems": "CENTER",
-    "cornerRadius": 8,
+    "cornerRadius": 12,
     "children": [
       {
         "type": "TEXT",
